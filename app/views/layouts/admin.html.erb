@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - VacBookingSystem</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'admin', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">
+      <%= link_to 'Admin', admin_root_url, class: 'navbar-brand' %>
+
+      <div class="navbar-nav-scroll">
+	<ul class="navbar-nav mr-auto">
+	  <li class="nav-item">
+	    <%= link_to 'User', '#', class: 'nav-link' %>
+	  </li>
+	  <li class="nav-item">
+	    <%= link_to 'Vaccine Items', '#', class: 'nav-link' %>
+	  </li>
+	</ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

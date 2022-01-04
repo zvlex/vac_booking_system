@@ -1,0 +1,12 @@
+<%= simple_form_for [:admin, user] do |f| %>
+  <%= f.input :full_name %>
+  <%= f.input :email %>
+
+  <% if user.new_record? %>
+    <%= f.input :password, as: :password %>
+    <%= f.input :password_confirmation, as: :password %>
+  <% end %>
+
+  <%= f.input :active %>
+  <%= f.button :submit, class: 'btn btn-primary' %>
+<% end %>
