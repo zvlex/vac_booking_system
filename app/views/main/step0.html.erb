@@ -1,0 +1,33 @@
+<h1>Registration</h1>
+
+<div class="row">
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+	<h5 class="card-title"><strong><%= @current_vaccine.name %></strong></h5>
+	<br />
+	<%= simple_form_for @record, method: :post, url: next_step_path do |f| %>
+	  <%= f.input :first_name %>
+	  <%= f.input :last_name %>
+	  <%= f.input :birth_date %>
+	  <%= f.input :pin %>
+	  <%= f.input :non_resident, as: :boolean %>
+	  <%= f.input :mobile_phone %>
+	  <%= f.input :email %>
+	  <%= f.submit I18n.t('web.main.step0_submit'), class: 'btn btn-success' %>
+	<% end %>
+      </div>
+
+      <div class="card-footer">
+	<small class="text-muted">
+	  <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	    <ol class="breadcrumb">
+	      <li class="breadcrumb-item"><%= link_to 'Home', root_url %></li>
+	      <li class="breadcrumb-item active" aria-current="page">Registration (<%= @current_vaccine.name %>)</li>
+	    </ol>
+	  </nav>
+	</small>
+      </div>
+    </div>
+  </div>
+</div>

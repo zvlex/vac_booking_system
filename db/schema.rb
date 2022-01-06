@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_04_125754) do
+ActiveRecord::Schema.define(version: 2022_01_06_111657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "bookings", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.bigint "vaccine_id", null: false
+    t.string "step_state", limit: 50
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "patient_id"
+    t.index ["guid"], name: "index_bookings_on_guid", unique: true
+    t.index ["patient_id"], name: "index_bookings_on_patient_id"
+    t.index ["step_state"], name: "index_bookings_on_step_state"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "first_name", limit: 50, null: false
+    t.string "last_name", limit: 50, null: false
+    t.date "birth_date", null: false
+    t.string "pin", limit: 50, null: false
+    t.boolean "non_resident", default: false, null: false
+    t.string "mobile_phone", limit: 30, null: false
+    t.string "email", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mobile_phone"], name: "index_patients_on_mobile_phone"
+    t.index ["pin"], name: "index_patients_on_pin"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "full_name", limit: 50, null: false
@@ -36,4 +63,5 @@ ActiveRecord::Schema.define(version: 2022_01_04_125754) do
     t.index ["name"], name: "index_vaccines_items_on_name", unique: true
   end
 
+  add_foreign_key "bookings", "patients"
 end

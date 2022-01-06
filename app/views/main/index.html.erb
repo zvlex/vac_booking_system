@@ -1,0 +1,22 @@
+<div class="row">
+  <h1><%= I18n.t('web.main.header') %></h1>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% @vaccine_items.each do |item| %>
+    <div class="col">
+      <div class="card h-100">
+	<div class="card-body">
+	  <h5 class="card-title"><strong><%= item.name %></strong></h5>
+	  <p class="card-text">Some long description</p>
+	  <%= link_to I18n.t('web.main.register_text'), new_booking_path(item.name.downcase), class: 'btn btn-primary' %>
+	</div>
+      </div>
+      <div class="card-footer">
+	<small class="text-muted">
+	  <%= I18n.t('web.main.seats', quantity: rand(1000)) %>
+	</small>
+      </div>
+    </div>
+  <% end %>
+</div>
