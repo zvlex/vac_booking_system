@@ -32,6 +32,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'simple_form'
 gem 'pagy'
 gem 'aasm'
+gem 'interactor'
 
 
 group :development, :test do

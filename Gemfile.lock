@@ -96,6 +96,7 @@ GEM
       activesupport (>= 5.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.2)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -237,6 +238,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   devise-bootstrap-views (~> 1.0)
+  interactor
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pagy

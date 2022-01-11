@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_111657) do
+ActiveRecord::Schema.define(version: 2022_01_11_124256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_01_06_111657) do
     t.string "email", limit: 255
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_name", "last_name", "pin", "birth_date"], name: "unique_patient_index", unique: true, where: "(non_resident = false)"
     t.index ["mobile_phone"], name: "index_patients_on_mobile_phone"
     t.index ["pin"], name: "index_patients_on_pin"
   end
