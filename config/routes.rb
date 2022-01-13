@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "main#index"
     resources :users
+    resources :business_unit_slots
   end
 
   root to: "main#index"

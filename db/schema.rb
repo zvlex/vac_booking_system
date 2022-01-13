@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_124256) do
+ActiveRecord::Schema.define(version: 2022_01_13_105534) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "btree_gist"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
@@ -26,6 +27,60 @@ ActiveRecord::Schema.define(version: 2022_01_11_124256) do
     t.index ["guid"], name: "index_bookings_on_guid", unique: true
     t.index ["patient_id"], name: "index_bookings_on_patient_id"
     t.index ["step_state"], name: "index_bookings_on_step_state"
+  end
+
+  create_table "business_unit_slots", force: :cascade do |t|
+    t.bigint "business_unit_id", null: false
+    t.integer "duration", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.bigint "user_id", null: false
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "business_unit_id, tsrange(start_date, end_date)", name: "bu_slots_no_intersection_date_ranges", using: :gist
+    t.index ["business_unit_id"], name: "index_business_unit_slots_on_business_unit_id"
+    t.index ["user_id"], name: "index_business_unit_slots_on_user_id"
+  end
+
+  create_table "business_units", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.bigint "city_id", null: false
+    t.bigint "district_id", null: false
+    t.string "name", limit: 150, null: false
+    t.string "code", limit: 50, null: false
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_business_units_on_city_id"
+    t.index ["country_id", "city_id", "code"], name: "index_business_units_on_country_id_and_city_id_and_code", unique: true
+    t.index ["country_id"], name: "index_business_units_on_country_id"
+    t.index ["district_id"], name: "index_business_units_on_district_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.string "name", limit: 150, null: false
+    t.string "code", limit: 50, null: false
+    t.boolean "active", default: false, null: false
+    t.index ["country_id", "code"], name: "index_cities_on_country_id_and_code", unique: true
+    t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", limit: 150, null: false
+    t.string "code", limit: 50, null: false
+    t.boolean "active", default: false, null: false
+    t.index ["code"], name: "index_countries_on_code", unique: true
+  end
+
+  create_table "districts", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.string "name", limit: 150, null: false
+    t.string "code", limit: 50, null: false
+    t.boolean "active", default: false, null: false
+    t.index ["city_id", "code"], name: "index_districts_on_city_id_and_code", unique: true
+    t.index ["city_id"], name: "index_districts_on_city_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -65,4 +120,11 @@ ActiveRecord::Schema.define(version: 2022_01_11_124256) do
   end
 
   add_foreign_key "bookings", "patients"
+  add_foreign_key "business_unit_slots", "business_units"
+  add_foreign_key "business_unit_slots", "users"
+  add_foreign_key "business_units", "cities"
+  add_foreign_key "business_units", "countries"
+  add_foreign_key "business_units", "districts"
+  add_foreign_key "cities", "countries"
+  add_foreign_key "districts", "cities"
 end

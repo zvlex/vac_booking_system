@@ -1,0 +1,52 @@
+<div class="row">
+  <p id="notice"><%= notice %></p>
+
+  <div class="col">
+    <%= link_to 'New Slot', new_admin_business_unit_slot_path, class: 'btn btn-success' %>
+  </div>
+</div>
+
+<br />
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+	<h1><%= I18n.t('admin.slots.list.header') %></h1>
+
+	<table class="table table-striped">
+	  <thead>
+	  <tr>
+	    <th><%= I18n.t('admin.slots.list.business_unit_name') %></th>
+	    <th><%= I18n.t('admin.slots.list.duration') %></th>
+	    <th><%= I18n.t('admin.slots.list.start_date') %></th>
+            <th><%= I18n.t('admin.slots.list.end_date') %></th>
+            <th><%= I18n.t('admin.slots.list.active') %></th>
+	    <th><%= I18n.t('admin.slots.list.created_at') %></th>
+	    <th><%= I18n.t('admin.slots.list.updated_at') %></th>
+	    <th colspan="2"></th>
+	  </tr>
+	  </thead>
+
+	  <tbody>
+	  <% @slots.each do |slot| %>
+	    <tr>
+	      <td class="align-middle"><%= slot.business_unit.name %></td>
+	      <td class="align-middle"><%= slot.duration %></td>
+	      <td class="align-middle"><%= slot.start_date %></td>
+              <td class="align-middle"><%= slot.end_date %></td>
+	      <td class="align-middle"><%= slot.active %></td>
+	      <td class="align-middle"><%= slot.created_at %></td>
+	      <td class="align-middle"><%= slot.updated_at %></td>
+	      <td class="align-middle"><%= link_to 'Edit', edit_admin_business_unit_slot_path(slot) %></td>
+	      <td class="align-middle"><%= link_to 'Destroy', [:admin, slot], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    </div>
+  </div>
+</div>

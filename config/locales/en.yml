@@ -20,3 +20,17 @@ en:
         super_admin: 'IsSuperAdmin'
         created_at: 'CreatedAt'
         updated_at: 'UpdatedAt'
+
+    slots:
+      errors:
+        duplicate_slot_error: 'Duplicate or incorect start-end date slot'
+      list:
+        header: 'Slots'
+        business_unit_name: 'BusinessUnitName'
+        duration: 'Duration'
+        start_date: 'StartDate'
+        end_date: 'EndDate'
+        active: 'IsActive'
+        created_at: 'CreatedAt'
+        updated_at: 'UpdatedAt'
+

@@ -1,0 +1,17 @@
+<% if slot.errors[:base].present? %>
+  <% slot.errors.each do |error| %>
+    <div class="alert alert-danger" role="alert">
+      <%= error.full_message %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= simple_form_for [:admin, slot] do |f| %>
+  <%= f.input :duration, as: :integer %>
+  <%= f.association :business_unit %>
+
+  <%= f.input :start_date %>
+  <%= f.input :end_date %>
+  <%= f.input :active %>
+  <%= f.button :submit, class: 'btn btn-primary' %>
+<% end %>
