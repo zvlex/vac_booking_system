@@ -9,7 +9,7 @@ class MainController < ApplicationController
     result = Web::CurrentStepService.call(booking: @booking, params: params)
 
     if result.success? && result.record.present?
-      @current_vaccine, @record = result.current_vaccine, result.record
+      assign_step_variables({ vaccine: result.current_vaccine, record: result.record })
 
       cookies.signed[:booking_uuid] = { value: result.booking.guid, expires: 30.minutes.from_now }
 
@@ -29,9 +29,9 @@ class MainController < ApplicationController
     if result.success?
       return redirect_to root_url, notice: I18n.t('web.main.booking_success') if result.last_step?
 
-      redirect_to current_step_path(result.booking.vaccine&.name)
+      redirect_to current_step_path(result.booking.vaccine&.name&.downcase)
     else
-      @current_vaccine, @record = result.booking.vaccine, result.record
+      assign_step_variables({ vaccine: result.booking.vaccine, record: result.record })
 
       render "main/steps/step#{result.current_step}"
     end
@@ -51,5 +51,10 @@ class MainController < ApplicationController
     if booking_uuid.present?
       @booking = Booking.find_by(guid: booking_uuid)
     end
+  end
+
+  def assign_step_variables(attrs)
+    @current_vaccine = attrs[:vaccine]
+    @record = attrs[:record]
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_105534) do
+ActiveRecord::Schema.define(version: 2022_01_18_125855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gist"
@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 2022_01_13_105534) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "patient_id"
+    t.bigint "order_id"
     t.index ["guid"], name: "index_bookings_on_guid", unique: true
+    t.index ["order_id"], name: "index_bookings_on_order_id"
     t.index ["patient_id"], name: "index_bookings_on_patient_id"
     t.index ["step_state"], name: "index_bookings_on_step_state"
   end
@@ -83,6 +85,20 @@ ActiveRecord::Schema.define(version: 2022_01_13_105534) do
     t.index ["city_id"], name: "index_districts_on_city_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "business_unit_slot_id", null: false
+    t.bigint "patient_id", null: false
+    t.string "order_code", limit: 16, null: false
+    t.datetime "order_date", null: false
+    t.boolean "finished", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["business_unit_slot_id", "order_date"], name: "index_orders_on_business_unit_slot_id_and_order_date", unique: true
+    t.index ["business_unit_slot_id"], name: "index_orders_on_business_unit_slot_id"
+    t.index ["order_code"], name: "index_orders_on_order_code", unique: true
+    t.index ["patient_id"], name: "index_orders_on_patient_id"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "first_name", limit: 50, null: false
     t.string "last_name", limit: 50, null: false
@@ -119,6 +135,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_105534) do
     t.index ["name"], name: "index_vaccines_items_on_name", unique: true
   end
 
+  add_foreign_key "bookings", "orders"
   add_foreign_key "bookings", "patients"
   add_foreign_key "business_unit_slots", "business_units"
   add_foreign_key "business_unit_slots", "users"
@@ -127,4 +144,6 @@ ActiveRecord::Schema.define(version: 2022_01_13_105534) do
   add_foreign_key "business_units", "districts"
   add_foreign_key "cities", "countries"
   add_foreign_key "districts", "cities"
+  add_foreign_key "orders", "business_unit_slots"
+  add_foreign_key "orders", "patients"
 end

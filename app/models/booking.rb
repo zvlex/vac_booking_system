@@ -24,4 +24,5 @@ class Booking < ApplicationRecord
 
   belongs_to :vaccine, class_name: 'VaccinesItem', foreign_key: :vaccine_id
   belongs_to :patient, optional: true
+  belongs_to :order, optional: true
 end

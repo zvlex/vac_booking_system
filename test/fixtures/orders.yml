@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_unit_slot: one
+  patient: one
+  order_code: MyString
+  order_date: 2022-01-18 16:53:28
+  finished: false
+
+two:
+  business_unit_slot: two
+  patient: two
+  order_code: MyString
+  order_date: 2022-01-18 16:53:28
+  finished: false

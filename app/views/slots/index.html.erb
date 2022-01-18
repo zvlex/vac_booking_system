@@ -1,0 +1,19 @@
+<br />
+
+<% @bu_slots.each do |group_option, slots| %>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= group_option[0] %> - Duration: <%= group_option[1] %></h5>
+    <p class="card-text">
+    <div class="row">
+    <% slots.each do |slot| %>
+      <div class="col-1">
+        <span class="btn btn-light"><%= slot.slot_item&.strftime("%H:%M") %></span>
+      </div>
+    <% end %>
+    </div>
+    </p>
+  </div>
+</div>
+<% end %>
+

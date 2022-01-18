@@ -1,0 +1,52 @@
+<h2>Booking</h2>
+
+<%= form_for :slots, html: { class: 'form' } do |f| %>
+  <div class="row" data-controller="slots">
+    <div class="col">
+      <%= f.collection_select :country_id, Country.active, :id, :name,
+        { include_blank: 'Select Country' },
+        class: 'form-select',
+        data: {
+          action: "change->slots#fetchCities",
+          slots_target: "country"
+        }
+      %>
+    </div>
+
+
+    <div class="col">
+      <%= f.collection_select :city_id, [], :id, :name,
+        { include_blank: 'Select City' },
+        class: 'form-select',
+        data: {
+          action: "change->slots#fetchDistricts",
+          slots_target: "city"
+        }
+      %>
+    </div>
+
+    <div class="col">
+      <%= f.collection_select :district_id, [], :id, :name,
+        { include_blank: 'Select District' },
+        class: 'form-select',
+        data: {
+          action: "change->slots#fetchBusinessUnits",
+          slots_target: "district"
+        }
+      %>
+    </div>
+
+    <div class="col">
+      <%= f.collection_select :business_unit_id, [], :id, :name,
+        { include_blank: 'Select Business Unit' },
+        class: 'form-select',
+        data: {
+          action: "change->slots#fetchSlots",
+          slots_target: "bu_unit"
+        }
+      %>
+    </div>
+
+    <div class="row" data-slots-target="slots"></div>
+</div>
+<% end %>
