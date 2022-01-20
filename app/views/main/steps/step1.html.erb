@@ -1,52 +1,89 @@
 <h2>Booking</h2>
 
-<%= form_for :slots, html: { class: 'form' } do |f| %>
-  <div class="row" data-controller="slots">
-    <div class="col">
-      <%= f.collection_select :country_id, Country.active, :id, :name,
-        { include_blank: 'Select Country' },
-        class: 'form-select',
-        data: {
-          action: "change->slots#fetchCities",
-          slots_target: "country"
-        }
-      %>
+<% if @record.errors[:base].present? %>
+  <% @record.errors.each do |error| %>
+    <div class="alert alert-danger" role="alert">
+      <%= error.full_message %>
     </div>
-
-
-    <div class="col">
-      <%= f.collection_select :city_id, [], :id, :name,
-        { include_blank: 'Select City' },
-        class: 'form-select',
-        data: {
-          action: "change->slots#fetchDistricts",
-          slots_target: "city"
-        }
-      %>
-    </div>
-
-    <div class="col">
-      <%= f.collection_select :district_id, [], :id, :name,
-        { include_blank: 'Select District' },
-        class: 'form-select',
-        data: {
-          action: "change->slots#fetchBusinessUnits",
-          slots_target: "district"
-        }
-      %>
-    </div>
-
-    <div class="col">
-      <%= f.collection_select :business_unit_id, [], :id, :name,
-        { include_blank: 'Select Business Unit' },
-        class: 'form-select',
-        data: {
-          action: "change->slots#fetchSlots",
-          slots_target: "bu_unit"
-        }
-      %>
-    </div>
-
-    <div class="row" data-slots-target="slots"></div>
-</div>
+  <% end %>
 <% end %>
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Choose Booking Time</h5>
+
+    <%= form_for :slots, html: { class: 'form' } do |f| %>
+      <div class="row" data-controller="slots">
+        <div class="col">
+          <%= f.collection_select :country_id, Country.active, :id, :name,
+            { include_blank: 'Select Country' },
+            class: 'form-select',
+            data: {
+              action: "change->slots#fetchCities",
+              slots_target: "country"
+            }
+          %>
+        </div>
+
+
+        <div class="col">
+          <%= f.collection_select :city_id, [], :id, :name,
+            { include_blank: 'Select City' },
+            class: 'form-select',
+            data: {
+              action: "change->slots#fetchDistricts",
+              slots_target: "city"
+            }
+          %>
+        </div>
+
+        <div class="col">
+          <%= f.collection_select :district_id, [], :id, :name,
+            { include_blank: 'Select District' },
+            class: 'form-select',
+            data: {
+              action: "change->slots#fetchBusinessUnits",
+              slots_target: "district"
+            }
+          %>
+        </div>
+
+        <div class="col">
+          <%= f.collection_select :business_unit_id, [], :id, :name,
+            { include_blank: 'Select Business Unit' },
+            class: 'form-select',
+            data: {
+              action: "change->slots#fetchSlots",
+              slots_target: "bu_unit"
+            }
+          %>
+        </div>
+
+        <div class="row" data-slots-target="slots"></div>
+      </div>
+    <% end %>
+
+    <br />
+
+    <div class="row">
+      <%= simple_form_for @record, method: :post, url: next_step_path do |f| %>
+        <%= f.input :order_date, as: :hidden %>
+        <%= f.input :business_unit_slot_id, as: :hidden %>
+        <%= f.submit I18n.t('web.main.step1_submit'), class: 'step1_submit btn btn-success invisible' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <small class="text-muted">
+      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to 'Home', root_url %></li>
+          <li class="breadcrumb-item"><%= link_to 'Registration', '#' %></li>
+          <li class="breadcrumb-item active" aria-current="page">Booking Slot (<%= @current_vaccine.name %>)</li>
+        </ol>
+      </nav>
+    </small>
+  </div>
+</div>

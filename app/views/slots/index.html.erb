@@ -8,7 +8,14 @@
     <div class="row">
     <% slots.each do |slot| %>
       <div class="col-1">
-        <span class="btn btn-light"><%= slot.slot_item&.strftime("%H:%M") %></span>
+        <span
+          class="slot-item btn"
+          data-action="click->slots#selectSlot"
+          data-slots-slot-time-param="<%= slot.slot_item %>"
+          data-slots-slot-id-param="<%= slot.id %>"
+        >
+          <%= slot.slot_item&.strftime("%H:%M") %>
+        </span>
       </div>
     <% end %>
     </div>

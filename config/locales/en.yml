@@ -5,6 +5,7 @@ en:
       seats: "Seats: %{quantity}"
       register_text: 'Register'
       step0_submit: 'Next'
+      step1_submit: 'Next'
 
   admin:
     users:

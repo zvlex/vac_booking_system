@@ -4,7 +4,7 @@ class SlotsController < ApplicationController
 
     slots =
       BusinessUnitSlot
-      .select('bus.id, bus.duration, bus.start_date::date AS current_start_date, slots.item::time AS slot_item')
+      .select('bus.id, bus.duration, bus.start_date::date AS current_start_date, slots.item AS slot_item')
       .from(@bu_unit.business_unit_slots.active, 'bus')
       .joins(
         "LEFT JOIN LATERAL (
