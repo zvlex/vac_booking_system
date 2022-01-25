@@ -18,7 +18,7 @@ module Web
       context.next_step = result.next_step
       context.current_step = result.current_step
 
-      context.send('last_step?=', false) # TODO:
+      context.send('last_step?=', result.last_step)
 
       context.fail!(message: result.message) if result.failure?
     end
@@ -37,6 +37,10 @@ module Web
 
     def step1_params
       context.params.require(:order).permit(:order_date, :business_unit_slot_id)
+    end
+
+    def step2_params
+      {}
     end
   end
 end

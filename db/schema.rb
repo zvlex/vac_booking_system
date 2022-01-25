@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_18_125855) do
+ActiveRecord::Schema.define(version: 2022_01_25_133217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gist"
@@ -85,6 +85,18 @@ ActiveRecord::Schema.define(version: 2022_01_18_125855) do
     t.index ["city_id"], name: "index_districts_on_city_id"
   end
 
+  create_table "order_sms_messages", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.string "code", limit: 16, null: false
+    t.string "title", null: false
+    t.string "message", null: false
+    t.datetime "sent_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_order_sms_messages_on_booking_id"
+    t.index ["code"], name: "index_order_sms_messages_on_code"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "business_unit_slot_id", null: false
     t.bigint "patient_id", null: false
@@ -144,6 +156,7 @@ ActiveRecord::Schema.define(version: 2022_01_18_125855) do
   add_foreign_key "business_units", "districts"
   add_foreign_key "cities", "countries"
   add_foreign_key "districts", "cities"
+  add_foreign_key "order_sms_messages", "bookings"
   add_foreign_key "orders", "business_unit_slots"
   add_foreign_key "orders", "patients"
 end

@@ -6,6 +6,17 @@ en:
       register_text: 'Register'
       step0_submit: 'Next'
       step1_submit: 'Next'
+      step2_submit: 'Finish'
+      step2:
+        full_name: 'Full Name'
+        email: 'Email'
+        pin: 'Pin'
+        mobile_phone: 'Mobile Phone'
+        birth_date: 'Birth Date'
+        order_address: 'Order Address'
+        order_date: 'Order date'
+        vaccine: 'Vaccine'
+        slot_already_reserved: 'This lost already reserved'
 
   admin:
     users:

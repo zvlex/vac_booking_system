@@ -33,6 +33,7 @@ gem 'simple_form'
 gem 'pagy'
 gem 'aasm'
 gem 'interactor'
+gem 'sidekiq'
 
 
 group :development, :test do
