@@ -1,6 +1,6 @@
 module Web
   module Steps
-    class Step1Service
+    class Step1NextService
       include Interactor
 
       before do
@@ -10,10 +10,11 @@ module Web
       end
 
       def call
-        context.record = Order.new(context.params)
+        context.record = context.booking.order || Order.new
 
         ActiveRecord::Base.transaction do
           context.record.patient_id = context.booking.patient_id
+          context.record.update!(context.params)
           context.record.save!
 
           update_booking!

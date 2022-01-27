@@ -14,10 +14,18 @@
     <h5 class="card-title">Choose Booking Time</h5>
 
     <%= form_for :slots, html: { class: 'form' } do |f| %>
-      <div class="row" data-controller="slots">
+      <% @bu_unit = BusinessUnitPresenter.new(@record.business_unit_slot&.business_unit) %>
+
+      <div class="row" data-controller="slots"
+                       data-slots-country-id-value="<%= @bu_unit.country_id %>"
+                       data-slots-city-id-value="<%= @bu_unit.city_id %>"
+                       data-slots-district-id-value="<%= @bu_unit.district_id %>"
+                       data-slots-bu-unit-id-value="<%= @bu_unit.id %>"
+                       data-slots-order-date-value="<%= @record.order_date.to_i %>"
+                       >
         <div class="col">
           <%= f.collection_select :country_id, Country.active, :id, :name,
-            { include_blank: 'Select Country' },
+            { include_blank: 'Select Country', selected: @bu_unit.country_id },
             class: 'form-select',
             data: {
               action: "change->slots#fetchCities",
@@ -66,13 +74,23 @@
 
     <br />
 
-    <div class="row">
-      <%= simple_form_for @record, method: :post, url: next_step_path do |f| %>
+  <div class="card-body">
+    <div class="btn-toolbar">
+      <div class="btn-group me-2">
+        <%= button_to '< Prev', prev_step_path, method: :post, class: 'btn btn-outline-dark' %>
+      </div>
+
+      <div class="btn-group me-2">
+        <%= simple_form_for @record, method: :post, url: next_step_path do |f| %>
         <%= f.input :order_date, as: :hidden %>
         <%= f.input :business_unit_slot_id, as: :hidden %>
         <%= f.submit I18n.t('web.main.step1_submit'), class: 'step1_submit btn btn-success invisible' %>
       <% end %>
+      </div>
     </div>
+  </div>
+
+
   </div>
 
   <div class="card-footer">

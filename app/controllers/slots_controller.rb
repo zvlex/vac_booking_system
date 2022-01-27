@@ -1,4 +1,8 @@
 class SlotsController < ApplicationController
+  before_action do
+    @dt = params[:dt]
+  end
+
   def index
     @bu_unit = BusinessUnit.find(params[:business_unit_id])
 
@@ -16,6 +20,7 @@ class SlotsController < ApplicationController
         AND o.finished = true AND o.order_date::timestamp = slots.item'
       )
       .where('o.id IS NULL')
+      .where('slots.item >= ?', Time.current)
       .order(:start_date)
 
     @bu_slots = slots.group_by { |r| [r.current_start_date, r.duration] }
@@ -24,13 +29,13 @@ class SlotsController < ApplicationController
   def fetch_cities
     @cities = City.active.where(country_id: params[:country_id])
 
-    render partial: 'cities', object: @cities, layout: false
+    render partial: 'cities', object: @cities, locals: { dt: @dt }, layout: false
   end
 
   def fetch_districts
     @districts = District.active.where(city_id: params[:city_id])
 
-    render partial: 'districts', object: @districts, layout: false
+    render partial: 'districts', object: @districts, locals: { dt: @dt }, layout: false
   end
 
   def fetch_business_units
@@ -40,6 +45,6 @@ class SlotsController < ApplicationController
       district_id: params[:district_id]
     )
 
-    render partial: 'bu_units', object: @bu_units, layout: false
+    render partial: 'bu_units', object: @bu_units, locals: { dt: @dt }, layout: false
   end
 end

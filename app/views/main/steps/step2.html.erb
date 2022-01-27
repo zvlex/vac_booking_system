@@ -67,9 +67,17 @@
   </div>
 
   <div class="card-body">
-    <%= simple_form_for @record.booking, method: :post, url: next_step_path do |f| %>
-      <%= f.submit I18n.t('web.main.step2_submit'), class: 'btn btn-success' %>
-    <% end %>
+    <div class="btn-toolbar">
+      <div class="btn-group me-2">
+        <%= button_to '< Prev', prev_step_path, method: :post, class: 'btn btn-outline-dark' %>
+      </div>
+
+      <div class="btn-group me-2">
+        <%= simple_form_for @record.booking, method: :post, url: next_step_path do |f| %>
+          <%= f.submit I18n.t('web.main.step2_submit'), class: 'btn btn-success' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
 

@@ -1,6 +1,6 @@
 module Web
   module Steps
-    class Step2Service
+    class Step2NextService
       include Interactor
 
       before do

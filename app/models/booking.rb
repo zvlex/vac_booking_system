@@ -9,6 +9,10 @@ class Booking < ApplicationRecord
       transitions from: :pending, to: :patient_upserted
     end
 
+    event :mark_as_pending do
+      transitions from: :patient_upserted, to: :pending
+    end
+
     event :reserve do
       transitions from: :patient_upserted, to: :reserved
     end

@@ -9,7 +9,7 @@
     <% slots.each do |slot| %>
       <div class="col-1">
         <span
-          class="slot-item btn"
+            class="slot-item btn <%= @dt.to_i == slot.slot_item.to_i ? 'slot-item-selected' : '' %>"
           data-action="click->slots#selectSlot"
           data-slots-slot-time-param="<%= slot.slot_item %>"
           data-slots-slot-id-param="<%= slot.id %>"
