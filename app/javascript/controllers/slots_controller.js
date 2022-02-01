@@ -33,7 +33,7 @@ export default class extends Controller {
 	Rails.ajax({
 	    type: "GET",
 	    url: "/slots/fetch_cities",
-	    data: "country_id=" + country_id + "&dt=" + this.countryIdValue,
+	    data: "country_id=" + country_id + "&dt=" + this.cityIdValue,
 	    success: (data) => {
 		this.cityTarget.innerHTML = data.body.innerHTML
 	    }
@@ -47,7 +47,7 @@ export default class extends Controller {
 	Rails.ajax({
 	    type: "GET",
 	    url: "/slots/fetch_districts",
-	    data: "city_id=" + city_id + "&dt=" + this.cityIdValue,
+	    data: "city_id=" + city_id + "&dt=" + this.districtIdValue,
 	    success: (data) => {
 		this.districtTarget.innerHTML = data.body.innerHTML
 	    }

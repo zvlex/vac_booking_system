@@ -7,7 +7,7 @@ set :repo_url, "git@github.com:zvlex/vac_booking_system.git"
 set :user, "deploy"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-#
+
 set :branch, :main
 
 # Default deploy_to directory is /var/www/my_app_name
