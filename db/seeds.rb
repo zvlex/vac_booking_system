@@ -20,3 +20,17 @@ BusinessUnit.find_or_create_by(
 )
 
 puts 'Done'
+
+country = Country.find_or_create_by(name: 'Ukraine', code: 'UA', active: true)
+city = City.find_or_create_by(name: 'Kiev', code: '001', active: true, country_id: country.id)
+district = District.find_or_create_by(name: 'Dis 1', code: '001', active: true, city_id: city.id)
+
+city = City.find_or_create_by(name: 'Kiev', code: '001', active: true, country_id: country.id)
+district = District.find_or_create_by(name: 'Dis 2', code: '002', active: true, city_id: city.id)
+
+BusinessUnit.find_or_create_by(
+  name: 'ABH', code: 'ABH', active: true,
+  country_id: country.id, city_id: city.id, district_id: district.id
+)
+
+puts 'Done'

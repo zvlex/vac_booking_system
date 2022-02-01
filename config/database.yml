@@ -83,6 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: vac_booking_system_production
-  username: vac_booking_system
-  password: <%= ENV['VAC_BOOKING_SYSTEM_DATABASE_PASSWORD'] %>
+  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
+  database: vac_production
+  username: <%= ENV.fetch("DB_USER") { 'postgres' } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { '' } %>
