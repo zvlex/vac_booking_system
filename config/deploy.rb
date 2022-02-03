@@ -24,7 +24,7 @@ set :deploy_to, "/home/deploy/#{fetch(:application)}"
 set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/master.key"
+append :linked_files, "config/master.key", "config/puma.rb"
 
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/sock"
@@ -36,7 +36,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/sock"
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-set :keep_releases, 1
+set :keep_releases, 2
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 set :ssh_options, port: 2222
