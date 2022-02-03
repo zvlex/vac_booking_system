@@ -56,7 +56,7 @@ namespace :deploy do
   end
 
   task :skip_tasks do
-    Rake::Task["deploy:migrate"].clear_actions
+    # Rake::Task["deploy:migrate"].clear_actions
   end
 
   task :add_flags do
